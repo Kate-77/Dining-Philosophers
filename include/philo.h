@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmoutaou <kmoutaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: artemis <artemis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 22:46:48 by kmoutaou          #+#    #+#             */
-/*   Updated: 2022/08/06 05:21:37 by kmoutaou         ###   ########.fr       */
+/*   Updated: 2022/08/06 16:06:26 by artemis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,21 +43,18 @@ typedef struct s_data
 	data_thread		*philo_infos;
 } th_data;
 
-int		ft_isdigit(int c);
-int		ft_atoi(const char *str);
-void	initialize(data_thread *infos, int argc, char **argv);
-void	forks(th_data *philosopher);
-void	eating(th_data *philosopher);
-void	sleeping(th_data *philosopher);
-void	thinking(th_data *philosopher);
-int		monitoring_times_eating(data_thread * infos);
-int		monitoring(th_data *philo);
-void	display(th_data *philo, char *str);
+int			ft_isdigit(int c);
+int			ft_atoi(const char *str);
+void		initialize(data_thread *infos, int argc, char **argv);
+void		init_threads(data_thread *infos);
+void		*thread_handler(void *arg);
 long long	get_time(void);
-long long	transform_ms(struct timeval t);
-void	p_usleep(int t);
-long long	transform_ms(struct timeval t);
-long long	get_time(void);
-void	manage_monitoring(data_thread *infos);
+void		p_usleep(int t);
+void		forks(th_data *philosopher);
+void		eating(th_data *philosopher);
+void		sleeping(th_data *philosopher);
+void		thinking(th_data *philosopher);
+void		display(th_data *philo, char *str);
+int			monitoring(data_thread *infos);
 
 #endif

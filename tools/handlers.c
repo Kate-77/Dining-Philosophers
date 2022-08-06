@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handlers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmoutaou <kmoutaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: artemis <artemis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 02:16:54 by kmoutaou          #+#    #+#             */
-/*   Updated: 2022/08/06 05:04:20 by kmoutaou         ###   ########.fr       */
+/*   Updated: 2022/08/06 16:01:29 by artemis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,10 @@
 
 void	forks(th_data *philosopher)
 {
-	/*if (philosopher->t_id % 2 == 0 )
-	{*/
-		pthread_mutex_lock(&philosopher->philo_infos->forks[philosopher->t_id]);
-		display(philosopher, "has taken a fork");
-		pthread_mutex_lock(&philosopher->philo_infos->forks[(philosopher->t_id + 1) % philosopher->philo_infos->number_of_philosophers]);
-		display(philosopher, "has taken a fork");
-	/*}
-	else
-	{
-		pthread_mutex_lock(&philosopher->philo_infos->forks[(philosopher->t_id + 1) % philosopher->philo_infos->number_of_philosophers]);
-		display(philosopher, "has taken the left fork");
-		pthread_mutex_lock(&philosopher->philo_infos->forks[philosopher->t_id]);
-		display(philosopher, "has taken the right fork");
-	}*/
+	pthread_mutex_lock(&philosopher->philo_infos->forks[philosopher->t_id]);
+	display(philosopher, "has taken a fork");
+	pthread_mutex_lock(&philosopher->philo_infos->forks[(philosopher->t_id + 1) % philosopher->philo_infos->number_of_philosophers]);
+	display(philosopher, "has taken a fork");
 	return ;
 }
 
@@ -56,4 +46,21 @@ void	thinking(th_data *philosopher)
 {
 	display(philosopher, "is thinking");
 	return ;
+}
+
+void	*thread_handler(void *arg)
+{
+	th_data	*philosopher;
+
+	philosopher = arg;
+	if (philosopher->t_id % 2 != 0)
+		p_usleep(philosopher->philo_infos->time_to_eat);
+	while (!philosopher->philo_infos->death)
+	{
+		forks(philosopher);
+		eating(philosopher);
+		sleeping(philosopher);
+		thinking(philosopher);
+	}
+	return (NULL);
 }
