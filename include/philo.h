@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: artemis <artemis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kmoutaou <kmoutaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 22:46:48 by kmoutaou          #+#    #+#             */
-/*   Updated: 2022/08/05 00:59:19 by artemis          ###   ########.fr       */
+/*   Updated: 2022/08/05 23:18:53 by kmoutaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ typedef struct thread_data
 	int				number_of_philosophers;
 	int				times_eating_done;
 	long long		start;
-	struct timeval	creation;
 	int				death;
 	pthread_mutex_t	display_mutex;
 	pthread_mutex_t	finish_mutex;
@@ -38,12 +37,12 @@ typedef struct thread_data
 
 typedef struct s_data
 {
-	int			t_id;
-	int			times_eating;
+	int				t_id;
+	int				times_eating;
 	//pthread_mutex_t		*left_fork;
 	//pthread_mutex_t		*right_fork;
 	//pthread_mutex_t		protector;
-	struct timeval		last_meal;
+	long long		last_meal;
 	pthread_t		*threads;
 	data_thread		*philo_infos;
 } th_data;
@@ -63,5 +62,6 @@ long long	transform_ms(struct timeval t);
 void	p_usleep(int t);
 long long	transform_ms(struct timeval t);
 long long	get_time(void);
+void	manage_monitoring(data_thread *infos);
 
 #endif

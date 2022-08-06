@@ -6,7 +6,7 @@
 /*   By: kmoutaou <kmoutaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 01:46:01 by kmoutaou          #+#    #+#             */
-/*   Updated: 2022/08/05 04:45:15 by kmoutaou         ###   ########.fr       */
+/*   Updated: 2022/08/05 23:33:03 by kmoutaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	display(th_data *philo, char *str)
 	//time = transform_ms(now) - transform_ms(philo->philo_infos->creation);
 	//time = get_time() - philo->philo_infos->start;
 	//time = transform_ms(philo->last_meal) - philo->philo_infos->start;
-	time = get_time() - philo->philo_infos->start;;
+	time = get_time() - philo->philo_infos->start;
 	if (!philo->philo_infos->death)
 		printf("%lld\t%d\t%s\n", time, philo->t_id + 1, str);
 	pthread_mutex_unlock(&philo->philo_infos->display_mutex);
@@ -55,16 +55,45 @@ void	check_args(int argc)
 	return ;
 }
 
+void	join_philo(data_thread *infos)
+{
+	int	i;
+
+	i = 0;
+	while (i < infos->number_of_philosophers)
+	{
+		pthread_join(infos->philo->threads[i], NULL);
+		i++;
+	}
+	free(infos->philo);
+	return ;
+}
+
+void	destroy_mutex(data_thread *infos)
+{
+	int	i;
+
+	i = 0;
+	while (i < infos->number_of_philosophers)
+	{
+		pthread_mutex_destroy(&infos->forks[i]);
+		i++;
+	}
+	free(infos->forks);
+	return ;
+}
+
 void	creation(data_thread *infos)
 {
 	int	i;
 
 	i = 0;
-	if (infos->philo->t_id % 2 == 0)
-		p_usleep(infos->time_to_eat);
+	/*if (infos->philo->t_id % 2 == 0)
+		p_usleep(infos->time_to_eat);*/
 	while (i < infos->number_of_philosophers)
 	{
-		infos->philo[i].last_meal = infos->creation;
+		infos->philo[i].last_meal = infos->start;
+		printf("lbedia last meal : %lld\n", infos->philo[i].last_meal - infos->start);
 		pthread_create(infos->philo->threads, NULL, t_handle, &infos->philo[i]);
 		i++;
 	}
@@ -75,35 +104,16 @@ int	main(int argc, char **argv)
 {
 	data_thread		*infos;
 	//th_data			*philosopher;
-	int				i;
 
 	check_args(argc);
 	infos = (data_thread *)malloc(sizeof(data_thread));
 	initialize(infos, argc, argv);
-	gettimeofday(&infos->creation, NULL);
 	infos->start = get_time();
 	creation(infos);
-	if (monitoring(infos->philo) == 0)
-		return (0);
-	if (infos->number_of_eat != 0)
-	{
-		if (monitoring_times_eating(infos) == 0)
-			return (0);
-	}
-	printf("dumb shit\n");
-	i = 0;
-	while (i < infos->number_of_philosophers)
-	{
-		pthread_join(infos->philo->threads[i], NULL);
-		i++;
-	}
-	free(infos->philo);
-	i = 0;
-	while (i < infos->number_of_philosophers)
-	{
-		pthread_mutex_destroy(&infos->forks[i]);
-		i++;
-	}
-	free(infos->forks);
+	manage_monitoring(infos);
+	//printf("dumb shit\n");
+	join_philo(infos);
+	destroy_mutex(infos);
+
 	return (0);
 }
