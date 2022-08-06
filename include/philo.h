@@ -6,7 +6,7 @@
 /*   By: kmoutaou <kmoutaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 22:46:48 by kmoutaou          #+#    #+#             */
-/*   Updated: 2022/08/05 23:18:53 by kmoutaou         ###   ########.fr       */
+/*   Updated: 2022/08/06 05:21:37 by kmoutaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,14 @@ typedef struct thread_data
 	long long		start;
 	int				death;
 	pthread_mutex_t	display_mutex;
-	pthread_mutex_t	finish_mutex;
-	pthread_mutex_t			*forks;
-	struct s_data			*philo;
+	pthread_mutex_t	*forks;
+	struct s_data	*philo;
 } data_thread;
 
 typedef struct s_data
 {
 	int				t_id;
 	int				times_eating;
-	//pthread_mutex_t		*left_fork;
-	//pthread_mutex_t		*right_fork;
-	//pthread_mutex_t		protector;
 	long long		last_meal;
 	pthread_t		*threads;
 	data_thread		*philo_infos;

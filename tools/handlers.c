@@ -6,7 +6,7 @@
 /*   By: kmoutaou <kmoutaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 02:16:54 by kmoutaou          #+#    #+#             */
-/*   Updated: 2022/08/06 04:08:37 by kmoutaou         ###   ########.fr       */
+/*   Updated: 2022/08/06 05:04:20 by kmoutaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	eating(th_data *philosopher)
 	philosopher->times_eating += 1;
 	if (philosopher->times_eating >= philosopher->philo_infos->number_of_eat)
 		philosopher->philo_infos->times_eating_done += 1;
-	printf("times eating done : %d\n", philosopher->philo_infos->times_eating_done);
 	p_usleep(philosopher->philo_infos->time_to_eat);
 	pthread_mutex_unlock(&philosopher->philo_infos->forks[philosopher->t_id]);
 	pthread_mutex_unlock(&philosopher->philo_infos->forks[(philosopher->t_id + 1) % philosopher->philo_infos->number_of_philosophers]);

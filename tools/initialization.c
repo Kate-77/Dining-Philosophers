@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: artemis <artemis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kmoutaou <kmoutaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 01:48:40 by kmoutaou          #+#    #+#             */
-/*   Updated: 2022/08/05 00:59:28 by artemis          ###   ########.fr       */
+/*   Updated: 2022/08/06 05:03:40 by kmoutaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	initialize(data_thread *infos, int argc, char **argv)
 	if (argc == 6)
 		infos->number_of_eat = ft_atoi(argv[5]);
     pthread_mutex_init(&infos->display_mutex, NULL);
-	pthread_mutex_init(&infos->finish_mutex, NULL);
     i = 0;
     while (i < infos->number_of_philosophers)
 	{
