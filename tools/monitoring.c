@@ -3,27 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   monitoring.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: artemis <artemis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kmoutaou <kmoutaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 02:17:07 by kmoutaou          #+#    #+#             */
-/*   Updated: 2022/08/06 15:52:18 by artemis          ###   ########.fr       */
+/*   Updated: 2022/08/08 00:11:18 by kmoutaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
-
-// int	monitoring_times_eating(data_thread * infos)
-// {
-// 	while (infos->death == 0)
-// 	{
-// 		if (infos->times_eating_done == infos->number_of_eat * infos->number_of_philosophers)
-// 		{
-// 			infos->death = 1;
-// 			return (0);
-// 		}
-// 	}
-// 	return (1);
-// }
 
 int	monitoring(data_thread *infos)
 {
@@ -38,10 +25,13 @@ int	monitoring(data_thread *infos)
 			infos->death = 1;
 			return (0); 
 		}
-		if (infos->times_eating_done == infos->number_of_eat * infos->number_of_philosophers)
+		if (infos->number_of_eat != -1)
 		{
-			infos->death = 1;
-			return (0);
+			if (infos->times_eating_done == infos->number_of_philosophers)
+			{
+				infos->death = 1;
+				return (0);
+			}
 		}
 	}
 	return (1);
