@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   timing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: artemis <artemis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kmoutaou <kmoutaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 03:53:18 by kmoutaou          #+#    #+#             */
-/*   Updated: 2022/08/06 16:04:12 by artemis          ###   ########.fr       */
+/*   Updated: 2022/08/08 00:50:52 by kmoutaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,8 @@ void	p_usleep(int t)
 	long long	tmp_t;
 
 	tmp_t = get_time();
-	usleep(t * 0.9);
 	while (get_time() < tmp_t + t)
-		usleep(100);
+		usleep(300);
 }
 
 long long	get_time(void)
@@ -27,10 +26,10 @@ long long	get_time(void)
 	struct timeval	t;
 
 	gettimeofday(&t, NULL);
-	return(t.tv_sec * 1000 + t.tv_usec / 1000);
+	return (t.tv_sec * 1000 + t.tv_usec / 1000);
 }
 
-void	display(th_data *philo, char *str)
+void	display(t_thread *philo, char *str)
 {
 	long long		time;
 

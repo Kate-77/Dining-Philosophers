@@ -6,13 +6,13 @@
 /*   By: kmoutaou <kmoutaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 02:17:07 by kmoutaou          #+#    #+#             */
-/*   Updated: 2022/08/08 00:11:18 by kmoutaou         ###   ########.fr       */
+/*   Updated: 2022/08/08 00:37:07 by kmoutaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-int	monitoring(data_thread *infos)
+int	monitoring(t_infos *infos)
 {
 	long long		time;
 
@@ -23,7 +23,7 @@ int	monitoring(data_thread *infos)
 		{
 			display(infos->philo, "died");
 			infos->death = 1;
-			return (0); 
+			return (0);
 		}
 		if (infos->number_of_eat != -1)
 		{

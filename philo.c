@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: artemis <artemis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kmoutaou <kmoutaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 01:46:01 by kmoutaou          #+#    #+#             */
-/*   Updated: 2022/08/06 16:04:24 by artemis          ###   ########.fr       */
+/*   Updated: 2022/08/08 00:27:03 by kmoutaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	check_args(int argc)
 	return ;
 }
 
-void	join_philo(data_thread *infos)
+void	join_philo(t_infos *infos)
 {
 	int	i;
 
@@ -36,7 +36,7 @@ void	join_philo(data_thread *infos)
 	return ;
 }
 
-void	destroy_mutex(data_thread *infos)
+void	destroy_mutex(t_infos *infos)
 {
 	int	i;
 
@@ -50,7 +50,7 @@ void	destroy_mutex(data_thread *infos)
 	return ;
 }
 
-void	creation(data_thread *infos)
+void	creation(t_infos *infos)
 {
 	int	i;
 
@@ -58,7 +58,8 @@ void	creation(data_thread *infos)
 	while (i < infos->number_of_philosophers)
 	{
 		infos->philo[i].last_meal = infos->start;
-		pthread_create(infos->philo->threads, NULL, thread_handler, &infos->philo[i]);
+		pthread_create(infos->philo->threads, NULL, thread_handler, \
+				&infos->philo[i]);
 		i++;
 	}
 	return ;
@@ -66,10 +67,10 @@ void	creation(data_thread *infos)
 
 int	main(int argc, char **argv)
 {
-	data_thread		*infos;
+	t_infos	*infos;
 
 	check_args(argc);
-	infos = (data_thread *)malloc(sizeof(data_thread));
+	infos = (t_infos *)malloc(sizeof(t_infos));
 	initialize(infos, argc, argv);
 	infos->start = get_time();
 	creation(infos);
