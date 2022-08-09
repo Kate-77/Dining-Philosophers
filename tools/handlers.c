@@ -6,7 +6,7 @@
 /*   By: kmoutaou <kmoutaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 02:16:54 by kmoutaou          #+#    #+#             */
-/*   Updated: 2022/08/08 00:34:38 by kmoutaou         ###   ########.fr       */
+/*   Updated: 2022/08/09 03:08:53 by kmoutaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ void	forks(t_thread *philosopher)
 
 void	eating(t_thread *philosopher)
 {
+	pthread_mutex_lock(&philosopher->lastmeal_protector);
 	philosopher->last_meal = get_time();
+	pthread_mutex_unlock(&philosopher->lastmeal_protector);
 	if (philosopher->philo_infos->death == 0)
 		display(philosopher, "is eating");
 	philosopher->times_eating += 1;
@@ -57,12 +59,19 @@ void	*thread_handler(void *arg)
 	philosopher = arg;
 	if (philosopher->t_id % 2 != 0)
 		p_usleep(philosopher->philo_infos->time_to_eat);
-	while (!philosopher->philo_infos->death)
+	pthread_mutex_lock(&philosopher->thanatos);
+	if (!philosopher->philo_infos->death)
 	{
+		while (!philosopher->philo_infos->death)
+	{
+		pthread_mutex_unlock(&philosopher->thanatos);
 		forks(philosopher);
 		eating(philosopher);
 		sleeping(philosopher);
 		thinking(philosopher);
 	}
+	}
+	else
+		pthread_mutex_unlock(&philosopher->thanatos);
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: kmoutaou <kmoutaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 01:46:01 by kmoutaou          #+#    #+#             */
-/*   Updated: 2022/08/08 00:27:03 by kmoutaou         ###   ########.fr       */
+/*   Updated: 2022/08/09 02:52:24 by kmoutaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	destroy_mutex(t_infos *infos)
 		i++;
 	}
 	free(infos->forks);
+	pthread_mutex_destroy(&infos->philo->lastmeal_protector);
+	pthread_mutex_destroy(&infos->philo->thanatos);
 	return ;
 }
 
@@ -57,7 +59,9 @@ void	creation(t_infos *infos)
 	i = 0;
 	while (i < infos->number_of_philosophers)
 	{
+		pthread_mutex_lock(&infos->philo->lastmeal_protector);
 		infos->philo[i].last_meal = infos->start;
+		pthread_mutex_unlock(&infos->philo->lastmeal_protector);
 		pthread_create(infos->philo->threads, NULL, thread_handler, \
 				&infos->philo[i]);
 		i++;

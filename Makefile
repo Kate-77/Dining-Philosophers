@@ -6,7 +6,7 @@
 #    By: kmoutaou <kmoutaou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/25 02:40:09 by kmoutaou          #+#    #+#              #
-#    Updated: 2022/07/30 03:13:41 by kmoutaou         ###   ########.fr        #
+#    Updated: 2022/08/09 02:44:21 by kmoutaou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ BNAME		=
 
 CC			= cc
 
-FLAGS		= -Wall -Wextra -Werror -pthread
+FLAGS		= -Wall -Wextra -Werror -pthread -fsanitize=thread
 
 SRCS		= philo.c tools/ft_atoi.c tools/initialization.c \
 			  tools/handlers.c tools/monitoring.c tools/timing.c

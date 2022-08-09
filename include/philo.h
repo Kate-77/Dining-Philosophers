@@ -6,7 +6,7 @@
 /*   By: kmoutaou <kmoutaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 22:46:48 by kmoutaou          #+#    #+#             */
-/*   Updated: 2022/08/08 00:39:39 by kmoutaou         ###   ########.fr       */
+/*   Updated: 2022/08/09 02:51:16 by kmoutaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ typedef struct t_thread
 	int				t_id;
 	int				times_eating;
 	long long		last_meal;
+	pthread_mutex_t	lastmeal_protector;
+	pthread_mutex_t	thanatos;
 	pthread_t		*threads;
 	t_infos	*philo_infos;
 }	t_thread;
