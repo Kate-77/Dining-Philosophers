@@ -6,7 +6,7 @@
 /*   By: kmoutaou <kmoutaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 01:48:40 by kmoutaou          #+#    #+#             */
-/*   Updated: 2022/08/09 02:51:53 by kmoutaou         ###   ########.fr       */
+/*   Updated: 2022/08/10 09:38:52 by kmoutaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,9 @@ void	initialize(t_infos *infos, int argc, char **argv)
 	else
 		infos->number_of_eat = -1;
 	pthread_mutex_init(&infos->display_mutex, NULL);
-	pthread_mutex_init(&infos->philo->lastmeal_protector, NULL);
-	pthread_mutex_init(&infos->philo->thanatos, NULL);
+	pthread_mutex_init(&infos->lastmeal_protector, NULL);
+	pthread_mutex_init(&infos->thanatos, NULL);
+	pthread_mutex_init(&infos->protector, NULL);
 	init_threads(infos);
 	return ;
 }

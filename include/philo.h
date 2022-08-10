@@ -6,7 +6,7 @@
 /*   By: kmoutaou <kmoutaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 22:46:48 by kmoutaou          #+#    #+#             */
-/*   Updated: 2022/08/09 02:51:16 by kmoutaou         ###   ########.fr       */
+/*   Updated: 2022/08/10 10:09:19 by kmoutaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <sys/time.h>
-# include <string.h>
 
 typedef struct t_data
 {
@@ -30,6 +29,9 @@ typedef struct t_data
 	long long		start;
 	int				death;
 	pthread_mutex_t	display_mutex;
+	pthread_mutex_t	lastmeal_protector;
+	pthread_mutex_t	thanatos;
+	pthread_mutex_t	protector;
 	pthread_mutex_t	*forks;
 	struct t_thread	*philo;
 }	t_infos;
@@ -39,8 +41,6 @@ typedef struct t_thread
 	int				t_id;
 	int				times_eating;
 	long long		last_meal;
-	pthread_mutex_t	lastmeal_protector;
-	pthread_mutex_t	thanatos;
 	pthread_t		*threads;
 	t_infos	*philo_infos;
 }	t_thread;

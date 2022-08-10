@@ -6,7 +6,7 @@
 /*   By: kmoutaou <kmoutaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 03:53:18 by kmoutaou          #+#    #+#             */
-/*   Updated: 2022/08/09 03:05:08 by kmoutaou         ###   ########.fr       */
+/*   Updated: 2022/08/10 09:41:07 by kmoutaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ void	display(t_thread *philo, char *str)
 
 	pthread_mutex_lock(&philo->philo_infos->display_mutex);
 	time = get_time() - philo->philo_infos->start;
-	pthread_mutex_lock(&philo->thanatos);
+	pthread_mutex_lock(&philo->philo_infos->thanatos);
 	if (!philo->philo_infos->death)
 		printf("%lld\t%d\t%s\n", time, philo->t_id + 1, str);
-	pthread_mutex_unlock(&philo->thanatos);
+	pthread_mutex_unlock(&philo->philo_infos->thanatos);
 	pthread_mutex_unlock(&philo->philo_infos->display_mutex);
 }
