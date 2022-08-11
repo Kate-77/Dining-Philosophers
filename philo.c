@@ -6,7 +6,7 @@
 /*   By: kmoutaou <kmoutaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 01:46:01 by kmoutaou          #+#    #+#             */
-/*   Updated: 2022/08/11 12:56:38 by kmoutaou         ###   ########.fr       */
+/*   Updated: 2022/08/11 13:00:12 by kmoutaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ int	main(int argc, char **argv)
 	creation(infos);
 	if (monitoring(infos) == 0)
 	{
-		join_philo(infos);
+		if (infos->number_of_philosophers > 1)
+			join_philo(infos);
 		return (0);
 	}
 	join_philo(infos);
