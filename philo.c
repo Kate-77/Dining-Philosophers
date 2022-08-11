@@ -6,7 +6,7 @@
 /*   By: kmoutaou <kmoutaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 01:46:01 by kmoutaou          #+#    #+#             */
-/*   Updated: 2022/08/11 13:00:12 by kmoutaou         ###   ########.fr       */
+/*   Updated: 2022/08/11 14:53:50 by kmoutaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	check_args(int argc)
 {
 	if (argc != 5 && argc != 6)
 	{	
-		printf("Error\n");
+		printf("Error number of arguments\n");
 		exit(0);
 	}
 	return ;
@@ -82,11 +82,9 @@ int	main(int argc, char **argv)
 		return (0);
 	creation(infos);
 	if (monitoring(infos) == 0)
-	{
-		if (infos->number_of_philosophers > 1)
-			join_philo(infos);
 		return (0);
-	}
+	if (infos->number_of_philosophers == 1)
+		return (0);
 	join_philo(infos);
 	destroy_mutex(infos);
 	free(infos);

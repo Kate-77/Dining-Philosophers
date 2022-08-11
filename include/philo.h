@@ -6,7 +6,7 @@
 /*   By: kmoutaou <kmoutaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 22:46:48 by kmoutaou          #+#    #+#             */
-/*   Updated: 2022/08/11 13:24:44 by kmoutaou         ###   ########.fr       */
+/*   Updated: 2022/08/11 14:57:11 by kmoutaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ typedef struct t_data
 	pthread_mutex_t	lastmeal_protector;
 	pthread_mutex_t	death_protector;
 	pthread_mutex_t	nbeatingdone_protector;
-	pthread_mutex_t	checker;
 	pthread_mutex_t	*forks;
 	struct t_thread	*philo;
 }	t_infos;
@@ -59,5 +58,7 @@ void		sleeping(t_thread *philosopher);
 void		thinking(t_thread *philosopher);
 void		display(t_thread *philo, char *str);
 int			monitoring(t_infos *infos);
-int			monitoring_musteat(t_infos *infos, long long time);
+int			monitoring_time(t_infos *infos, long long time);
+int			monitoring_musteat(t_infos *infos);
+
 #endif
