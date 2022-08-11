@@ -6,7 +6,7 @@
 /*   By: kmoutaou <kmoutaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 01:48:40 by kmoutaou          #+#    #+#             */
-/*   Updated: 2022/08/11 12:57:03 by kmoutaou         ###   ########.fr       */
+/*   Updated: 2022/08/11 13:19:15 by kmoutaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,32 +15,17 @@
 int	validate_args(int argc, char **argv)
 {
 	if (ft_atoi(argv[1]) < 0)
-	{	
-		printf("Error number of philosophers");
-		return (1);
-	}
+		return (printf("Error number of philosophers"));
 	if (ft_atoi(argv[2]) < 0)
-	{	
-		printf("Error time to die");
-		return (1);
-	}
+		return (printf("Error time to die"));
 	if (ft_atoi(argv[3]) < 0)
-	{	
-		printf("Error time to eat");
-		return (1);
-	}
+		return (printf("Error time to eat"));
 	if (ft_atoi(argv[4]) < 0)
-	{	
-		printf("Error time to sleep");
-		return (1);
-	}
+		return (printf("Error time to sleep"));
 	if (argc == 6)
 	{
 		if (ft_atoi(argv[5]) < 1)
-		{	
-			printf("Error number of times each philosopher must eat");
-			return (1);
-		}
+			return (printf("Error number of times each philosopher must eat"));
 	}
 	return (0);
 }
@@ -62,7 +47,7 @@ void	init_threads(t_infos *infos)
 
 int	initialize(t_infos *infos, int argc, char **argv)
 {
-	if (validate_args(argc, argv) == 1)
+	if (validate_args(argc, argv) != 0)
 		return (1);
 	infos->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) \
 			* ft_atoi(argv[1]));

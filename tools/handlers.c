@@ -6,7 +6,7 @@
 /*   By: kmoutaou <kmoutaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 02:16:54 by kmoutaou          #+#    #+#             */
-/*   Updated: 2022/08/11 12:55:05 by kmoutaou         ###   ########.fr       */
+/*   Updated: 2022/08/11 13:09:09 by kmoutaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	*thread_handler(void *arg)
 {
 	t_thread	*philosopher;
 
-	philosopher = arg;
+	philosopher = (t_thread *)arg;
 	if (philosopher->t_id % 2 != 0)
 		p_usleep(philosopher->philo_infos->time_to_eat);
 	pthread_mutex_lock(&philosopher->philo_infos->death_protector);

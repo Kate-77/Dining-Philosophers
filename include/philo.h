@@ -6,7 +6,7 @@
 /*   By: kmoutaou <kmoutaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 22:46:48 by kmoutaou          #+#    #+#             */
-/*   Updated: 2022/08/11 12:56:47 by kmoutaou         ###   ########.fr       */
+/*   Updated: 2022/08/11 13:24:44 by kmoutaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,5 @@ void		sleeping(t_thread *philosopher);
 void		thinking(t_thread *philosopher);
 void		display(t_thread *philo, char *str);
 int			monitoring(t_infos *infos);
-int			monitoring_musteat(t_infos *infos);
+int			monitoring_musteat(t_infos *infos, long long time);
 #endif
