@@ -6,7 +6,7 @@
 /*   By: kmoutaou <kmoutaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 01:46:01 by kmoutaou          #+#    #+#             */
-/*   Updated: 2022/08/10 13:33:35 by kmoutaou         ###   ########.fr       */
+/*   Updated: 2022/08/11 12:56:38 by kmoutaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,10 @@ void	destroy_mutex(t_infos *infos)
 		i++;
 	}
 	free(infos->forks);
+	pthread_mutex_destroy(&infos->display_protector);
 	pthread_mutex_destroy(&infos->lastmeal_protector);
-	pthread_mutex_destroy(&infos->thanatos);
-	pthread_mutex_destroy(&infos->protector);
+	pthread_mutex_destroy(&infos->death_protector);
+	pthread_mutex_destroy(&infos->nbeatingdone_protector);
 	return ;
 }
 
@@ -58,12 +59,13 @@ void	creation(t_infos *infos)
 	int	i;
 
 	i = 0;
+	infos->start = get_time();
 	while (i < infos->number_of_philosophers)
 	{
 		pthread_mutex_lock(&infos->lastmeal_protector);
 		infos->philo[i].last_meal = infos->start;
 		pthread_mutex_unlock(&infos->lastmeal_protector);
-		pthread_create(infos->philo->threads, NULL, thread_handler, \
+		pthread_create(&infos->philo->threads[i], NULL, thread_handler, \
 				&infos->philo[i]);
 		i++;
 	}
@@ -76,11 +78,14 @@ int	main(int argc, char **argv)
 
 	check_args(argc);
 	infos = (t_infos *)malloc(sizeof(t_infos));
-	initialize(infos, argc, argv);
-	infos->start = get_time();
+	if (initialize(infos, argc, argv))
+		return (0);
 	creation(infos);
 	if (monitoring(infos) == 0)
+	{
+		join_philo(infos);
 		return (0);
+	}
 	join_philo(infos);
 	destroy_mutex(infos);
 	free(infos);
