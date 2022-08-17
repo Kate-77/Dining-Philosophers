@@ -6,20 +6,20 @@
 /*   By: kmoutaou <kmoutaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 01:46:01 by kmoutaou          #+#    #+#             */
-/*   Updated: 2022/08/11 14:53:50 by kmoutaou         ###   ########.fr       */
+/*   Updated: 2022/08/17 13:31:55 by kmoutaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/philo.h"
 
-void	check_args(int argc)
+int	check_args(int argc)
 {
 	if (argc != 5 && argc != 6)
 	{	
 		printf("Error number of arguments\n");
-		exit(0);
+		return (0);
 	}
-	return ;
+	return (1);
 }
 
 void	join_philo(t_infos *infos)
@@ -76,7 +76,8 @@ int	main(int argc, char **argv)
 {
 	t_infos	*infos;
 
-	check_args(argc);
+	if (!check_args(argc))
+		return (0);
 	infos = (t_infos *)malloc(sizeof(t_infos));
 	if (initialize(infos, argc, argv))
 		return (0);
